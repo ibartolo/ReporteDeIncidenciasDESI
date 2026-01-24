@@ -1,0 +1,45 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Sistema de Incidencias Poza Rica</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="~/CSS/Template/HomeLogin.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="login-container">
+        <!-- Encabezado -->
+        <div class="login-header">
+            <img src="https://i0.wp.com/poza-rica.gob.mx/wp-content/uploads/2025/12/logo-web-poza-rica-2026-2029.png?fit=1180%2C313&ssl=1"
+                 alt="Logo Gobierno de Poza Rica" class="login-logo">
+            <h1 class="login-title">Sistema de Incidencias Ciudadanas</h1>
+            <p class="login-subtitle">H. Ayuntamiento de Poza Rica 2026-2029</p>
+        </div>
+
+        @RenderBody()
+
+        <!-- Footer información -->
+        <div class="text-center mt-4" style="color: rgba(255, 255, 255, 0.8);">
+            <p class="small">
+                <i class="fas fa-shield-alt"></i>
+                Sistema seguro • Versión 2.1 • © 2026 H. Ayuntamiento de Poza Rica
+            </p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="~/JS/Template/HomeLogin.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+﻿:root {
+    --color-institucional: #7c1928;
+    --color-dorado: #ae8b54;
+    --color-blanco: #ffffff;
+    --color-azul: #0b3a5c;
+    --color-texto: #333333;
+    --color-fondo: #f5f5f5;
+    --color-borde: #dddddd;
+    --color-facebook: #1877f2;
+    --color-google: #db4437;
+}
+
+body {
+    background: linear-gradient(135deg, var(--color-institucional) 0%, var(--color-azul) 100%);
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 450px;
+}
+
+/* Logo y encabezado */
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-logo {
+    height: 80px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    margin-bottom: 20px;
+}
+
+.login-title {
+    color: var(--color-blanco);
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.login-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    margin-bottom: 30px;
+}
+
+/* Tarjeta de login */
+.login-card {
+    background-color: var(--color-blanco);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-top: 5px solid var(--color-dorado);
+}
+
+/* Tabs de selección de usuario */
+.user-type-tabs {
+    display: flex;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--color-fondo);
+}
+
+.user-tab {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-weight: 500;
+    color: var(--color-texto);
+    font-size: 1rem;
+    transition: all 0.3s;
+    position: relative;
+}
+
+    .user-tab:hover {
+        color: var(--color-institucional);
+    }
+
+    .user-tab.active {
+        color: var(--color-institucional);
+        font-weight: 600;
+    }
+
+        .user-tab.active:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--color-institucional);
+            border-radius: 3px 3px 0 0;
+        }
+
+/* Formularios */
+.login-form {
+    display: none;
+}
+
+    .login-form.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+    }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--color-texto);
+    }
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--color-borde);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+    .form-control:focus {
+        border-color: var(--color-dorado);
+        box-shadow: 0 0 0 3px rgba(174, 139, 84, 0.1);
+        outline: none;
+    }
+
+/* Botón de login */
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--color-institucional);
+    color: var(--color-blanco);
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+    .btn-login:hover {
+        background-color: #5a1220;
+    }
+
+/* Botones OAuth */
+.oauth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn-oauth {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid var(--color-borde);
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--color-blanco);
+}
+
+    .btn-oauth:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+.btn-oauth-google {
+    color: var(--color-texto);
+    border-color: #ddd;
+}
+
+    .btn-oauth-google:hover {
+        border-color: var(--color-google);
+        background-color: rgba(219, 68, 55, 0.05);
+    }
+
+.btn-oauth-facebook {
+    color: var(--color-texto);
+    border-color: #ddd;
+}
+
+    .btn-oauth-facebook:hover {
+        border-color: var(--color-facebook);
+        background-color: rgba(24, 119, 242, 0.05);
+    }
+
+/* Separador */
+.separator {
+    text-align: center;
+    margin: 25px 0;
+    position: relative;
+    color: #666;
+}
+
+    .separator:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: var(--color-borde);
+    }
+
+    .separator span {
+        background-color: var(--color-blanco);
+        padding: 0 15px;
+        position: relative;
+    }
+
+/* Enlaces adicionales */
+.login-links {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-borde);
+}
+
+    .login-links a {
+        color: var(--color-institucional);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+    }
+
+        .login-links a:hover {
+            color: #5a1220;
+            text-decoration: underline;
+        }
+
+/* Mensajes */
+.alert {
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.1);
+    border: 1px solid rgba(220, 53, 69, 0.2);
+    color: #d32f2f;
+}
+
+.alert-info {
+    background-color: rgba(11, 78, 162, 0.1);
+    border: 1px solid rgba(11, 78, 162, 0.2);
+    color: var(--color-azul);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .login-card {
+        padding: 20px;
+    }
+
+    .login-title {
+        font-size: 1.5rem;
+    }
+
+    .login-logo {
+        height: 60px;
+    }
+
+    .user-tab {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+}

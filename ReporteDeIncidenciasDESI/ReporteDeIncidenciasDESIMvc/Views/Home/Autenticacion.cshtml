@@ -1,0 +1,100 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Autentication.cshtml";
+}
+
+<!-- Tarjeta de login -->
+<div class="login-card">
+    <!-- Tabs de tipo de usuario -->
+    <div class="user-type-tabs">
+        <button class="user-tab active" data-tab="publico">
+            <i class="fas fa-users"></i> Ciudadano
+        </button>
+        <button class="user-tab" data-tab="interno">
+            <i class="fas fa-building"></i> Ayuntamiento
+        </button>
+    </div>
+
+    <!-- Mensajes -->
+    <div id="mensaje-error" class="alert alert-danger" style="display: none;">
+        <i class="fas fa-exclamation-circle"></i> <span id="mensaje-texto">Credenciales incorrectas</span>
+    </div>
+
+    <!-- Formulario Público (Google/Facebook) -->
+    <div id="form-publico" class="login-form active">
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i>
+            Accede con tu cuenta de Google o Facebook para reportar incidencias ciudadanas.
+        </div>
+
+        <div class="oauth-buttons">
+            <button type="button" class="btn-oauth btn-oauth-google" id="btn-google">
+                <i class="fab fa-google" style="color: var(--color-google);"></i>
+                Iniciar con Google
+            </button>
+
+            <button type="button" class="btn-oauth btn-oauth-facebook" id="btn-facebook">
+                <i class="fab fa-facebook-f" style="color: var(--color-facebook);"></i>
+                Iniciar con Facebook
+            </button>
+        </div>
+
+        <div class="separator">
+            <span>¿No tienes cuenta?</span>
+        </div>
+
+        <div class="text-center">
+            <p>Al iniciar sesión con Google o Facebook, se creará automáticamente tu cuenta de ciudadano.</p>
+            <small class="text-muted">
+                <i class="fas fa-shield-alt"></i>
+                Tu información está protegida según la Ley de Protección de Datos
+            </small>
+        </div>
+    </div>
+
+    <!-- Formulario Interno (Email/Password) -->
+    <div id="form-interno" class="login-form">
+        <form id="form-login-interno">
+            <div class="form-group">
+                <label for="email"><i class="fas fa-envelope"></i> Correo Institucional</label>
+                <input type="email" class="form-control" id="email"
+                       placeholder="usuario@pozarica.gob.mx" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password"><i class="fas fa-lock"></i> Contraseña</label>
+                <input type="password" class="form-control" id="password"
+                       placeholder="Ingresa tu contraseña" required>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="remember"> Recordar mi sesión
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-login">
+                <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+            </button>
+        </form>
+
+        <div class="login-links">
+            <a href="RecuperaTuAcceso.html">
+                <i class="fas fa-key"></i> ¿Olvidaste tu contraseña?
+            </a>
+        </div>
+    </div>
+
+    <!-- Enlace de registro público alternativo -->
+    <div class="login-links">
+        <a href="#" id="link-registro-email">
+            <i class="fas fa-user-plus"></i> Regístrate con correo electrónico
+        </a>
+        <br>
+        <a href="index.html">
+            <i class="fas fa-home"></i> Volver al inicio
+        </a>
+    </div>
+</div>
