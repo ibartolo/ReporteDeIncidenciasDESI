@@ -7,10 +7,6 @@ namespace User.Proxy
     // Ahora implementa IUserProxy
     public class UserProxy : DbWrapper, IUserProxy
     {
-        public UserProxy()
-        {
-            // Inicialización de DbWrapper si es necesaria
-        }
         public DataTable GetAllUsers()
         {
             DataTable dt = GetObject("GetAllUsuario", CommandType.StoredProcedure);

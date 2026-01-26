@@ -8,6 +8,7 @@ namespace ReporteDeIncidenciasDESIMvc.Controllers
 {
     public class HomeController : Controller
     {
+        #region Views
         public ActionResult Index()
         {
             return View();
@@ -16,5 +17,10 @@ namespace ReporteDeIncidenciasDESIMvc.Controllers
         {
             return View();
         }
+        #endregion
+
+        #region Data Access
+
+        #endregion
     }
 }
