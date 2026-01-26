@@ -1,5 +1,6 @@
 ﻿using SqlProxy;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace User.Proxy
 {
@@ -18,7 +19,12 @@ namespace User.Proxy
 
         public DataTable GetUserById(long id)
         {
-            return new DataTable();
+            var sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@Id", id)
+            };
+            DataTable dt = GetObject("GetUsuarioById", CommandType.StoredProcedure, sqlParameters);
+            return dt;
         }
     }
 }
