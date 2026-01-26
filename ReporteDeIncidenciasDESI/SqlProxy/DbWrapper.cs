@@ -15,7 +15,7 @@ namespace SqlProxy
 
         public DbWrapper()
         {
-            SQLConnectionString = "Data Source=SQL5107.site4now.net;Initial Catalog=db_9c7990_consultoriodesimvc;User Id=db_9c7990_consultoriodesimvc_admin;Password=Ifbc121290.01";
+            SQLConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["cCon"].ToString();
             SQLCommandTimeOut = TimeSpan.FromSeconds(15);
         }
         public T MappingProperties<T>(object item)

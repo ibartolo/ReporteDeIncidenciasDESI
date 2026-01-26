@@ -10,11 +10,10 @@ namespace User.Proxy
         {
             // Inicialización de DbWrapper si es necesaria
         }
-
-        // Implementaciones mínimas; reemplaza por llamadas reales a la BD
         public DataTable GetAllUsers()
         {
-            return new DataTable();
+            DataTable dt = GetObject("GetAllUsuario", CommandType.StoredProcedure);
+            return dt;
         }
 
         public DataTable GetUserById(long id)

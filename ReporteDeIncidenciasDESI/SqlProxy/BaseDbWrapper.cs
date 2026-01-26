@@ -139,15 +139,16 @@ namespace SqlProxy
         #endregion
 
         #region GetObject
-        protected T GetObject<T>(string cmdText, Func<IDataReader, T> readerFunctionPointer) where T : class =>
-            GetObject(cmdText, CommandType.StoredProcedure, Enumerable.Empty<SqlParameter>(), readerFunctionPointer);
+        protected DataTable GetObject(string cmdText) =>
+            GetObject(cmdText, CommandType.StoredProcedure, Enumerable.Empty<SqlParameter>());
 
-        protected T GetObject<T>(string cmdText, CommandType cmdType, Func<IDataReader, T> readerFunctionPointer) where T : class =>
-            GetObject(cmdText, cmdType, Enumerable.Empty<SqlParameter>(), readerFunctionPointer);
+        protected DataTable GetObject(string cmdText, CommandType cmdType) =>
+            GetObject(cmdText, cmdType, Enumerable.Empty<SqlParameter>());
 
-        protected T GetObject<T>(string cmdText, CommandType cmdType, IEnumerable<SqlParameter> sqlParameters,
-            Func<IDataReader, T> readerFunctionPointer) where T : class
+        protected DataTable GetObject(string cmdText, CommandType cmdType, IEnumerable<SqlParameter> sqlParameters)
         {
+            // Aseguramos siempre devolver una instancia de DataTable (puede quedar sin filas).
+            var dt = new DataTable();
 
             using (var sqlConnection = new SqlConnection(SQLConnectionString))
             {
@@ -162,40 +163,33 @@ namespace SqlProxy
 
                     using (var reader = sqlCommand.ExecuteReader())
                     {
-
-                        if (typeof(T) == typeof(DataTable))
-                        {
-                            return readerFunctionPointer?.Invoke(reader);
-                        }
-
-                        if (reader.Read())
-                        {
-                            return readerFunctionPointer?.Invoke(reader);
-                        }
+                        // Cargar el DataTable; dt quedará vacío si no hay filas
+                        dt.Load(reader);
                     }
                 }
             }
-            return default(T);
+
+            return dt;
         }
         #endregion
 
         #region GetObjectAsync
-        protected async Task<T> GetObjectAsync<T>(string cmdText, Func<IDataReader, T> readerFunctionPointer) where T : class =>
-            await GetObjectAsync(cmdText, CommandType.StoredProcedure, Enumerable.Empty<SqlParameter>(), readerFunctionPointer);
+        protected async Task<DataTable> GetObjectAsync(string cmdText) =>
+            await GetObjectAsync(cmdText, CommandType.StoredProcedure, Enumerable.Empty<SqlParameter>());
 
-        protected async Task<T> GetObjectAsync<T>(string cmdText, CommandType cmdType, Func<IDataReader, T> readerFunctionPointer) where T : class =>
-            await GetObjectAsync(cmdText, cmdType, Enumerable.Empty<SqlParameter>(), readerFunctionPointer);
+        protected async Task<DataTable> GetObjectAsync(string cmdText, CommandType cmdType) =>
+            await GetObjectAsync(cmdText, cmdType, Enumerable.Empty<SqlParameter>());
+
         /// <summary>
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="cmdText"></param>
         /// <param name="cmdType"></param>
         /// <param name="sqlParameters"></param>
-        /// <param name="readerFunctionPointer"></param>
         /// <returns></returns>
-        protected async Task<T> GetObjectAsync<T>(string cmdText, CommandType cmdType, IEnumerable<SqlParameter> sqlParameters,
-            Func<IDataReader, T> readerFunctionPointer) where T : class
+        protected async Task<DataTable> GetObjectAsync(string cmdText, CommandType cmdType, IEnumerable<SqlParameter> sqlParameters)
         {
+            // Aseguramos siempre devolver una instancia de DataTable (puede quedar sin filas).
+            var dt = new DataTable();
 
             using (var sqlConnection = new SqlConnection(SQLConnectionString))
             {
@@ -211,11 +205,8 @@ namespace SqlProxy
                     {
                         using (var reader = await sqlCommand.ExecuteReaderAsync())
                         {
-
-                            if (await reader.ReadAsync())
-                            {
-                                return readerFunctionPointer?.Invoke(reader);
-                            }
+                            // Cargar el DataTable; dt quedará vacío si no hay filas
+                            dt.Load(reader);
                         }
                     }
                     catch (Exception ex)
@@ -224,94 +215,8 @@ namespace SqlProxy
                     }
                 }
             }
-            return default(T);
-        }
-        #endregion
 
-        #region GetObjects
-        protected IEnumerable<T> GetObjects<T>(string cmdText, Func<IDataReader, T> readerFunctionPointer) where T : class =>
-            GetObjects(cmdText, CommandType.StoredProcedure, Enumerable.Empty<SqlParameter>(), readerFunctionPointer);
-
-        protected IEnumerable<T> GetObjects<T>(string cmdText, CommandType cmdType, Func<IDataReader, T> readerFunctionPointer) where T : class =>
-            GetObjects(cmdText, cmdType, Enumerable.Empty<SqlParameter>(), readerFunctionPointer);
-
-        protected IEnumerable<T> GetObjects<T>(string cmdText, CommandType cmdType, IEnumerable<SqlParameter> sqlParameters,
-            Func<IDataReader, T> readerFunctionPointer) where T : class
-        {
-
-            using (var sqlConnection = new SqlConnection(SQLConnectionString))
-            {
-                sqlConnection.Open();
-
-                using (var sqlCommand = sqlConnection.CreateCommand())
-                {
-                    sqlCommand.CommandTimeout = (int)SQLCommandTimeOut.TotalSeconds;
-                    sqlCommand.CommandText = cmdText;
-                    sqlCommand.CommandType = cmdType;
-                    sqlCommand.Parameters.AddRange(sqlParameters?.ToArray() ?? Enumerable.Empty<SqlParameter>().ToArray());
-
-                    using (var reader = sqlCommand.ExecuteReader())
-                    {
-
-                        var objList = new List<T>();
-
-                        while (reader.Read())
-                        {
-                            objList.Add(readerFunctionPointer?.Invoke(reader));
-                            //yield return readerFunctionPointer?.Invoke(reader);
-                        }
-
-                        return objList;
-                    }
-                }
-            }
-        }
-        #endregion
-
-        #region GetObjectsAsync
-        protected async Task<IEnumerable<T>> GetObjectsAsync<T>(string cmdText, Func<IDataReader, T> readerFunctionPointer) where T : class =>
-            await GetObjectsAsync(cmdText, CommandType.StoredProcedure, Enumerable.Empty<SqlParameter>(), readerFunctionPointer);
-
-        protected async Task<IEnumerable<T>> GetObjectsAsync<T>(string cmdText, CommandType cmdType, Func<IDataReader, T> readerFunctionPointer)
-            where T : class => await GetObjectsAsync(cmdText, cmdType, Enumerable.Empty<SqlParameter>(), readerFunctionPointer);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="cmdText"></param>
-        /// <param name="cmdType"></param>
-        /// <param name="sqlParameters"></param>
-        /// <param name="readerFunctionPointer"></param>
-        /// <returns></returns>
-        protected async Task<IEnumerable<T>> GetObjectsAsync<T>(string cmdText, CommandType cmdType, IEnumerable<SqlParameter> sqlParameters,
-            Func<IDataReader, T> readerFunctionPointer) where T : class
-        {
-            using (var sqlConnection = new SqlConnection(SQLConnectionString))
-            {
-                await sqlConnection.OpenAsync();
-
-                using (var sqlCommand = sqlConnection.CreateCommand())
-                {
-                    sqlCommand.CommandTimeout = (int)SQLCommandTimeOut.TotalSeconds;
-                    sqlCommand.CommandText = cmdText;
-                    sqlCommand.CommandType = cmdType;
-                    sqlCommand.Parameters.AddRange(sqlParameters?.ToArray() ?? Enumerable.Empty<SqlParameter>().ToArray());
-
-                    using (var reader = await sqlCommand.ExecuteReaderAsync())
-                    {
-
-                        var objectList = new List<T>();
-
-                        while (await reader.ReadAsync())
-                        {
-                            objectList.Add(readerFunctionPointer?.Invoke(reader));
-                            //objectList.Add(FillEntity<T>(reader));
-                        }
-
-                        return objectList;
-                    }
-                }
-            }
+            return dt;
         }
         #endregion
     }

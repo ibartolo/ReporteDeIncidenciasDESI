@@ -21,7 +21,7 @@ namespace ReporteDeIncidenciasDESIWebApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetAll")]
+        [Route("GetAllusers")]
         public IHttpActionResult GetAllusers()
         {
             var result = _userApp.GetAllUsers(out var operationResult);

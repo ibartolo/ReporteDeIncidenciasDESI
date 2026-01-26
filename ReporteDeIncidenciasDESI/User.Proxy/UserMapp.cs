@@ -43,19 +43,63 @@ namespace User.Proxy
                 string name = dto.Columns.Contains("Nombre") && row["Nombre"] != DBNull.Value
                     ? row["Nombre"].ToString() ?? string.Empty
                     : string.Empty;
-                string lastname = dto.Columns.Contains("Apellido") && row["Apellido"] != DBNull.Value
-                    ? row["Apellido"].ToString() ?? string.Empty
+
+                int tipoUsuario = 0;
+                if (dto.Columns.Contains("TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
+                {
+                    try { tipoUsuario = Convert.ToInt32(row["TipoUsuario"]); } catch { tipoUsuario = 0; }
+                }
+
+                string oauthProvider = dto.Columns.Contains("OAuthProvider") && row["OAuthProvider"] != DBNull.Value
+                    ? row["OAuthProvider"].ToString() ?? string.Empty
+                    : string.Empty;
+                string oauthId = dto.Columns.Contains("OAuthId") && row["OAuthId"] != DBNull.Value
+                    ? row["OAuthId"].ToString() ?? string.Empty
                     : string.Empty;
 
+                DateTime fechaRegistro = DateTime.MinValue;
+                if (dto.Columns.Contains("FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
+                {
+                    try { fechaRegistro = Convert.ToDateTime(row["FechaRegistro"]); } catch { fechaRegistro = DateTime.MinValue; }
+                }
 
+                bool estatus = false;
+                if (dto.Columns.Contains("Estatus") && row["Estatus"] != DBNull.Value)
+                {
+                    try { estatus = Convert.ToBoolean(row["Estatus"]); } catch { estatus = false; }
+                }
 
-                // Crear nuevo WorkAreaObj por cada fila
+                string createdBy = dto.Columns.Contains("CreatedBy") && row["CreatedBy"] != DBNull.Value
+                    ? row["CreatedBy"].ToString() ?? string.Empty
+                    : string.Empty;
+
+                DateTime createdDt = DateTime.MinValue;
+                if (dto.Columns.Contains("CreatedDt") && row["CreatedDt"] != DBNull.Value)
+                {
+                    try { createdDt = Convert.ToDateTime(row["CreatedDt"]); } catch { createdDt = DateTime.MinValue; }
+                }
+
+                string updatedBy = dto.Columns.Contains("UpdatedBy") && row["UpdatedBy"] != DBNull.Value
+                    ? row["UpdatedBy"].ToString() ?? string.Empty
+                    : string.Empty;
+
+                DateTime updatedDt = DateTime.MinValue;
+                if (dto.Columns.Contains("UpdatedDt") && row["UpdatedDt"] != DBNull.Value)
+                {
+                    try { updatedDt = Convert.ToDateTime(row["UpdatedDt"]); } catch { updatedDt = DateTime.MinValue; }
+                }
+
+                // Crear nuevo UserObj por cada fila
                 var item = UserObj.Create(id);
                 if (item != null)
                 {
-                    item.SetInformationContact(email);
+                    // Llamadas a métodos existentes en UserObj para poblar todas las propiedades
+                    item.SetInformationContact(email, tipoUsuario);
                     item.SetInformationSecurity(username, pass);
-                    item.SetInformationUser(name, lastname);
+                    item.SetInformationUser(name, fechaRegistro);
+                    item.SetOautInformation(oauthProvider, oauthId);
+                    item.SetAuditInformation(estatus, createdBy, createdDt, updatedBy, updatedDt);
+
                     list.Add(item);
                 }
             }
