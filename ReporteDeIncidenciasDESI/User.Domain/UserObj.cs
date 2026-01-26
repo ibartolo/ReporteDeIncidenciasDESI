@@ -85,13 +85,22 @@ namespace User.Domain
 
             return this;
         }
-        public UserObj SetAuditInformation(bool estatus, string createdBy, DateTime createdDt, string updatedBy, DateTime updatedDt)
+        public UserObj SetAuditInformationCreated(string createdBy, DateTime createdDt)
         {
-            _estatus = estatus;
             _createdBy = createdBy;
             _createdDt = createdDt;
+            return this;
+        }
+
+        public UserObj SetAuditInformationUpdated(string updatedBy, DateTime updatedDt)
+        {
             _updatedBy = updatedBy;
             _updatedDt = updatedDt;
+            return this;
+        }
+        public UserObj SetStatus(bool estatus)
+        {
+            _estatus = estatus;
             return this;
         }
     }

@@ -98,7 +98,9 @@ namespace User.Proxy
                     item.SetInformationSecurity(username, pass);
                     item.SetInformationUser(name, fechaRegistro);
                     item.SetOautInformation(oauthProvider, oauthId);
-                    item.SetAuditInformation(estatus, createdBy, createdDt, updatedBy, updatedDt);
+                    item.SetAuditInformationCreated(createdBy, createdDt);
+                    item.SetAuditInformationUpdated(updatedBy, updatedDt);
+                    item.SetStatus(estatus);
 
                     list.Add(item);
                 }
