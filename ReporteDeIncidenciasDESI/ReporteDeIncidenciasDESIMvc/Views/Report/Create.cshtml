@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/CSS/Report/Create.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-xs-12">
+        <!-- Encabezado de página -->
+        <div class="encabezado-pagina">
+            <h1 class="titulo-pagina"><i class="fas fa-file-medical"></i> Captura de Nueva Incidencia</h1>
+        </div>
+
+        <!-- Formulario de captura -->
+        <div class="panel panel-formulario">
+            <div class="panel-heading panel-heading-formulario">
+                <h3 class="panel-title"><i class="fas fa-edit"></i> Información del Reporte</h3>
+            </div>
+            <div class="panel-body panel-body-formulario">
+                <form id="formulario-incidencia" method="post" enctype="multipart/form-data">
+                    <!-- Sección 1: Información básica -->
+                    <h3 class="subtitulo-seccion"><i class="fas fa-info-circle"></i> Información Básica</h3>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label for="titulo" class="required">Título del Reporte</label>
+                                <input type="text" class="form-control" id="titulo" name="titulo"
+                                       placeholder="Ej: Lámpara fundida en Av. Juárez" maxlength="200" required>
+                                <small class="help-block">Describe brevemente el problema (máx. 200 caracteres)</small>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <label for="categoria" class="required">Categoría</label>
+                                <select class="form-control" id="categoria" name="categoriaId" required>
+                                    <option value="">Seleccione una categoría</option>
+                                    <option value="1">Alumbrado Público</option>
+                                    <option value="2">Bacheo y Pavimentación</option>
+                                    <option value="3">Recolección de Basura</option>
+                                    <option value="4">Agua Potable y Drenaje</option>
+                                    <option value="5">Parques y Jardines</option>
+                                    <option value="6">Tránsito y Vialidad</option>
+                                    <option value="7">Seguridad Pública</option>
+                                    <option value="8">Otros Servicios</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion" class="required">Descripción Detallada</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion"
+                                  rows="4" placeholder="Describa el problema con todos los detalles necesarios..." required></textarea>
+                        <small class="help-block">Incluya información relevante como marcas, señales, afectaciones, etc.</small>
+                    </div>
+
+                    <!-- Sección 2: Prioridad -->
+                    <h3 class="subtitulo-seccion"><i class="fas fa-exclamation-triangle"></i> Nivel de Prioridad</h3>
+
+                    <div class="selector-prioridad">
+                        <div class="prioridad-option prioridad-baja">
+                            <input type="radio" id="prioridad-baja" name="prioridad" value="0" class="prioridad-radio" checked>
+                            <label for="prioridad-baja" class="prioridad-label">
+                                <div class="icono-prioridad"><i class="fas fa-arrow-down"></i></div>
+                                <strong>Baja</strong>
+                                <p class="small">Problema leve, sin riesgo inmediato</p>
+                            </label>
+                        </div>
+
+                        <div class="prioridad-option prioridad-media">
+                            <input type="radio" id="prioridad-media" name="prioridad" value="1" class="prioridad-radio">
+                            <label for="prioridad-media" class="prioridad-label">
+                                <div class="icono-prioridad"><i class="fas fa-equals"></i></div>
+                                <strong>Media</strong>
+                                <p class="small">Problema moderado, atención en 48h</p>
+                            </label>
+                        </div>
+
+                        <div class="prioridad-option prioridad-alta">
+                            <input type="radio" id="prioridad-alta" name="prioridad" value="2" class="prioridad-radio">
+                            <label for="prioridad-alta" class="prioridad-label">
+                                <div class="icono-prioridad"><i class="fas fa-arrow-up"></i></div>
+                                <strong>Alta</strong>
+                                <p class="small">Urgente, riesgo para la población</p>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Sección 3: Ubicación -->
+                    <!--<h3 class="subtitulo-seccion"><i class="fas fa-map-marker-alt"></i> Ubicación del Problema</h3>
+
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <div class="form-group">
+                <label for="direccion" class="required">Dirección</label>
+                <input type="text" class="form-control" id="direccion" name="direccion"
+                       placeholder="Ej: Avenida Juárez #123, entre Calles 5 y 6" maxlength="500" required>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div class="form-group">
+                <label for="colonia" class="required">Colonia</label>
+                <input type="text" class="form-control" id="colonia" name="colonia"
+                       placeholder="Ej: Centro, Petrolera, Obrera, etc." maxlength="200" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Ubicación en Mapa</label>
+        <div class="contenedor-mapa">
+            <div class="mapa-placeholder">
+                <i class="fas fa-map"></i>
+                <p>Seleccione la ubicación exacta en el mapa</p>
+                <p class="small">Haga clic en el botón "Seleccionar en Mapa"</p>
+            </div>
+            <button type="button" class="btn-ubicacion" id="btn-seleccionar-mapa">
+                <i class="fas fa-map-pin"></i> Seleccionar en Mapa
+            </button>
+        </div>
+        <small class="help-block">Coordenadas seleccionadas: <span id="coordenadas">No seleccionadas</span></small>
+        <input type="hidden" id="latitud" name="latitud">
+        <input type="hidden" id="longitud" name="longitud">
+    </div>
+    -->
+                    <!-- Sección 4: Anexos -->
+                    <h3 class="subtitulo-seccion"><i class="fas fa-paperclip"></i> Anexos (Máximo 3 archivos)</h3>
+
+                    <div class="form-group">
+                        <label for="archivos">Subir Archivos de Evidencia</label>
+
+                        <!-- Área de subida de archivos -->
+                        <div class="area-subida" id="area-subida">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h4>Arrastra y suelta archivos aquí</h4>
+                            <p class="small">o haz clic para seleccionar archivos</p>
+                            <p class="small text-muted">Formatos permitidos: JPG, PNG, PDF, DOC, DOCX (Máx. 5MB cada uno)</p>
+                        </div>
+                        <input type="file" id="input-archivos" name="anexos[]" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" style="display: none;">
+
+                        <!-- Lista de archivos seleccionados -->
+                        <div class="lista-archivos" id="lista-archivos">
+                            <div class="item-archivo" id="plantilla-archivo" style="display: none;">
+                                <i class="fas fa-file"></i>
+                                <div class="info-archivo">
+                                    <div class="nombre-archivo">nombre-archivo.ext</div>
+                                    <div class="tamano-archivo">0 KB</div>
+                                </div>
+                                <button type="button" class="btn-eliminar-archivo">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <!-- Los archivos se agregarán aquí dinámicamente -->
+                        </div>
+
+                        <div class="alert alert-info" role="alert">
+                            <i class="fas fa-info-circle"></i> Puede adjuntar hasta 3 archivos como evidencia fotográfica o documental del problema.
+                        </div>
+                    </div>
+
+                    <!-- Botones de acción -->
+                    <div class="botones-accion">
+                        <button type="button" class="btn btn-cancelar" id="btn-cancelar" onclick="CancelReport()">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-guardar" id="btn-guardar">
+                            <i class="fas fa-save"></i> Guardar Reporte
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function CancelReport() {
+        location.href = "/Home/Index";
+    }
+</script>

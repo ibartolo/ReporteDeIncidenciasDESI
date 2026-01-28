@@ -1,0 +1,278 @@
+﻿Create.css
+/* Estilos específicos de la vista Create (se eliminaron las reglas duplicadas del template base) */
+/* Contenido principal - Formulario */
+.encabezado-pagina {
+    margin: 20px 0;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--color-dorado);
+}
+
+.titulo-pagina {
+    color: var(--color-institucional);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+    .titulo-pagina i {
+        color: var(--color-dorado);
+        margin-right: 10px;
+    }
+
+.subtitulo-seccion {
+    color: var(--color-azul);
+    font-size: 1.3rem;
+    margin: 25px 0 15px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-dorado);
+}
+
+    .subtitulo-seccion i {
+        color: var(--color-dorado);
+        margin-right: 10px;
+    }
+
+/* Panel de formulario */
+.panel-formulario {
+    border: 1px solid var(--color-borde);
+    border-radius: 6px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+
+.panel-heading-formulario {
+    background-color: var(--color-azul);
+    color: var(--color-blanco);
+    border-bottom: 2px solid var(--color-dorado);
+    padding: 15px;
+    border-radius: 6px 6px 0 0;
+}
+
+.panel-body-formulario {
+    padding: 25px;
+}
+
+/* Selectores de prioridad */
+.selector-prioridad {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.prioridad-option {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+}
+
+.prioridad-radio {
+    display: none;
+}
+
+.prioridad-label {
+    display: block;
+    padding: 15px 10px;
+    border: 2px solid var(--color-borde);
+    border-radius: 6px;
+    background-color: var(--color-blanco);
+    transition: all 0.3s;
+}
+
+    .prioridad-label:hover {
+        border-color: var(--color-dorado);
+        background-color: rgba(174, 139, 84, 0.05);
+    }
+
+.prioridad-radio:checked + .prioridad-label {
+    border-color: var(--color-dorado);
+    background-color: rgba(174, 139, 84, 0.1);
+    font-weight: 600;
+}
+
+.prioridad-baja .prioridad-label {
+    border-left: 4px solid var(--color-baja);
+}
+
+.prioridad-media .prioridad-label {
+    border-left: 4px solid var(--color-media);
+}
+
+.prioridad-alta .prioridad-label {
+    border-left: 4px solid var(--color-urgente);
+}
+
+.icono-prioridad {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.prioridad-baja .icono-prioridad {
+    color: var(--color-baja);
+}
+
+.prioridad-media .icono-prioridad {
+    color: var(--color-media);
+}
+
+.prioridad-alta .icono-prioridad {
+    color: var(--color-urgente);
+}
+
+/* Subida de archivos */
+.area-subida {
+    border: 2px dashed var(--color-borde);
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    background-color: var(--color-blanco);
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 20px;
+}
+
+    .area-subida:hover {
+        border-color: var(--color-dorado);
+        background-color: rgba(174, 139, 84, 0.05);
+    }
+
+    .area-subida i {
+        font-size: 3rem;
+        color: var(--color-dorado);
+        margin-bottom: 15px;
+    }
+
+.lista-archivos {
+    margin-top: 20px;
+}
+
+.item-archivo {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border: 1px solid var(--color-borde);
+    border-radius: 6px;
+    margin-bottom: 10px;
+    background-color: var(--color-blanco);
+}
+
+    .item-archivo i {
+        font-size: 1.5rem;
+        margin-right: 15px;
+        color: var(--color-azul);
+    }
+
+.info-archivo {
+    flex: 1;
+}
+
+.nombre-archivo {
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+
+.tamano-archivo {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.btn-eliminar-archivo {
+    background: none;
+    border: none;
+    color: var(--color-urgente);
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 5px;
+}
+
+/* Mapa de ubicación */
+.contenedor-mapa {
+    border: 1px solid var(--color-borde);
+    border-radius: 6px;
+    overflow: hidden;
+    height: 300px;
+    background-color: #e9ecef;
+    position: relative;
+}
+
+.mapa-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #666;
+}
+
+    .mapa-placeholder i {
+        font-size: 4rem;
+        margin-bottom: 15px;
+        color: var(--color-dorado);
+    }
+
+.btn-ubicacion {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
+    background-color: var(--color-institucional);
+    color: var(--color-blanco);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+/* Botones de acción */
+.botones-accion {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-borde);
+    text-align: right;
+}
+
+.btn-guardar {
+    background-color: var(--color-institucional);
+    color: var(--color-blanco);
+    border: none;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-left: 10px;
+}
+
+    .btn-guardar:hover {
+        background-color: #5a1220;
+        color: var(--color-blanco);
+    }
+
+.btn-cancelar {
+    background-color: var(--color-blanco);
+    color: var(--color-institucional);
+    border: 1px solid var(--color-institucional);
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+    .btn-cancelar:hover {
+        background-color: rgba(124, 25, 40, 0.05);
+        color: var(--color-institucional);
+    }
+
+@media (max-width: 767px) {
+    .selector-prioridad {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .botones-accion {
+        text-align: center;
+    }
+
+    .btn-guardar, .btn-cancelar {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
