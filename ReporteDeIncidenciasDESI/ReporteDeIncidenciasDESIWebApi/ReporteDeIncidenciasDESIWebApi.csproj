@@ -159,6 +159,8 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AutenticationController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CouncilorOfficeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -178,6 +180,18 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Categories.Application\Categories.Application.csproj">
+      <Project>{aa339095-5182-4221-9ea9-fb41134a685b}</Project>
+      <Name>Categories.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Categories.Domain\Categories.Domain.csproj">
+      <Project>{34c2e6c6-ba62-45a6-bd23-cb4730dee4a2}</Project>
+      <Name>Categories.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Categories.Messages\Categories.Messages.csproj">
+      <Project>{791a69d2-7eb0-47ec-a019-ec152b7dfa2f}</Project>
+      <Name>Categories.Messages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common.Domain\Common.Domain.csproj">
       <Project>{DE1657BC-13A9-420D-BBC3-A83E6121304F}</Project>
       <Name>Common.Domain</Name>
@@ -198,6 +212,9 @@
       <Project>{9D51366F-E30D-4815-95A2-0BAA361C2759}</Project>
       <Name>User.Proxy</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
