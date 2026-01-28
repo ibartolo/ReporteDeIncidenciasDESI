@@ -13,7 +13,7 @@ namespace ReporteDeIncidenciasDESIMvc.Controllers
         {
             return View();
         }
-        public ActionResult Autenticacion()
+        public ActionResult Autentication()
         {
             return View();
         }
