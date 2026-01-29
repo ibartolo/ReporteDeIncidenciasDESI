@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SqlProxy;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SqlProxy;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
+
 namespace Categories.Proxy
 {
     public class CategoriesProxy : DbWrapper, ICategoriesProxy
@@ -18,16 +14,34 @@ namespace Categories.Proxy
 
         public DataTable GetCategoryById(long id)
         {
-            var parameter = new List<SqlParameter>()
+            var parameter = new SqlParameter[]
             {
-                new SqlParameter()
-                {
-                    ParameterName = "@Id",
-                    Value = id
-                }
+                new SqlParameter("@Id", id)
             };
 
             var r = GetObject("GetCategoriaById", CommandType.StoredProcedure, parameter);
+            return r;
+        }
+
+        public DataTable GetCategoriesByCouncilor(long councilorId) 
+        {
+            var parameter = new SqlParameter[]
+            {
+                new SqlParameter("@RegiduriaId", councilorId)
+            };
+
+            var r = GetObject("GetCategoriasByRegiduria", CommandType.StoredProcedure, parameter);
+            return r;
+        }
+
+        public DataTable GetCategoriesByCouncilorId(long councilorId)
+        {
+            var parameter = new SqlParameter[]
+            {
+                new SqlParameter("@RegiduriaId", councilorId)
+            };
+
+            var r = GetObject("GetCategoriasByRegiduriaId", CommandType.StoredProcedure, parameter);
             return r;
         }
     }

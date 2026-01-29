@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Categories.Application;
-using Categories.Domain;
 using Common.Domain;
 
 
@@ -15,30 +14,26 @@ namespace ReporteDeIncidenciasDESIWebApi.Controllers
     [RoutePrefix("api/Categories")]
     public class CategoriesController : ApiController
     {
-        private readonly ICategoriesApp _categoryApp;
+        private readonly ICategoriesApp _categoriesApp;
         public CategoriesController(ICategoriesApp categoriesApp)
         {
-            _categoryApp = categoriesApp;
+            _categoriesApp = categoriesApp;
         }
 
         [HttpGet]
-        public CategoriesObjListResponse GetAllCategories()
+        [Route("List")]
+        public IHttpActionResult GetAllCategories()
         {
-            CategoriesObjListResponse list = new CategoriesObjListResponse();
-            List<CategoriesObj> list = _app.GetAllCategories(out OperationResult result);
-            list.categories = list;
-            list.result = result;
-            return list;
+            var result = _categoriesApp.GetAllCategories(out var OperationResult);
+            return Ok(result);
         }
 
-        [HttpGet]
-        public CategoriesObjResponse GetCategoriesById(long id)
-        {
-            CategoriesObjResponse response = new CategoriesObjResponse();
-            CategoriesObj obj = _categoryApp.GetCategoriesById(id, out OperationResult result);
-            response.category = obj;
-            response.result = result;
-            return response;
-        }
+        //[HttpGet]
+        //[Route("{long:id}")]
+        //public IHttpActionResult GetCategoryById(long id)
+        //{
+        //    var result = _categoriesApp.GetCategoriesById(id, out var OperationResult);
+        //    return Ok(result);
+        //}
     }
 }
