@@ -160,7 +160,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AutenticationController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
-    <Compile Include="Controllers\CouncilorOfficeController.cs" />
+    <Compile Include="Controllers\CouncilorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -181,20 +181,32 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Categories.Application\Categories.Application.csproj">
-      <Project>{aa339095-5182-4221-9ea9-fb41134a685b}</Project>
+      <Project>{2f6089cc-9410-4123-99e3-9d1c47f64392}</Project>
       <Name>Categories.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\Categories.Domain\Categories.Domain.csproj">
-      <Project>{34c2e6c6-ba62-45a6-bd23-cb4730dee4a2}</Project>
+      <Project>{9517fd5e-27ee-4567-935b-567d3c95c515}</Project>
       <Name>Categories.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Categories.Messages\Categories.Messages.csproj">
-      <Project>{791a69d2-7eb0-47ec-a019-ec152b7dfa2f}</Project>
-      <Name>Categories.Messages</Name>
+    <ProjectReference Include="..\Categories.Proxy\Categories.Proxy.csproj">
+      <Project>{301165b4-7b8e-41cc-a991-78fd3b8bc1f5}</Project>
+      <Name>Categories.Proxy</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common.Domain\Common.Domain.csproj">
       <Project>{DE1657BC-13A9-420D-BBC3-A83E6121304F}</Project>
       <Name>Common.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Councilor.Application\Councilor.Application.csproj">
+      <Project>{aee79d2f-1267-427b-8c1b-3ed10d141e65}</Project>
+      <Name>Councilor.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Councilor.Domain\Councilor.Domain.csproj">
+      <Project>{4bddad41-904a-4ad7-8782-72c2dbffd75a}</Project>
+      <Name>Councilor.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Councilor.Proxy\Councilor.Proxy.csproj">
+      <Project>{28471abf-fa2e-45b3-90d4-333ea3339084}</Project>
+      <Name>Councilor.Proxy</Name>
     </ProjectReference>
     <ProjectReference Include="..\SqlProxy\SqlProxy.csproj">
       <Project>{6b5124eb-b5b9-4dfe-b5e3-b8c1bf125a40}</Project>

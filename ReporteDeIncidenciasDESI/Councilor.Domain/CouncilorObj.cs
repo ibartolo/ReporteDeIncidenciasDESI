@@ -5,43 +5,34 @@ using System.Text;
 using System.Threading.Tasks;
 using Common.Domain;
 
-namespace Categories.Domain
+namespace Councilor.Domain
 {
-    public class CategoriesObj : Entity<long>
+    public class CouncilorObj : Entity<long>
     {
-        private long _councilorId;
         private string _name;
         private string _description;
-        private long _categoryFatherId;
         private int _order;
-        private int _attentiontime;
         private bool _estatus;
         private string _createdBy;
         private DateTime _createdDt;
         private string _updatedBy;
         private DateTime _updatedDt;
 
-        public long CouncilorId => _councilorId;
         public string Name => _name;
         public string Description => _description;
-        public long CategoryFatherId => _categoryFatherId;
         public int Order => _order;
-        public int Attentiontime => _attentiontime;
         public bool Estatus => _estatus;
         public string CreatedBy => _createdBy;
         public DateTime CreatedDt => _createdDt;
         public string UpdatedBy => _updatedBy;
         public DateTime UpdatedDt => _updatedDt;
 
-        private CategoriesObj(long categoriesId)
+        private CouncilorObj(long councilorId)
         {
-            Id = categoriesId;
-            _councilorId = 0;
+            Id = councilorId;
             _name = string.Empty;
             _description = string.Empty;
-            _categoryFatherId = 0;
             _order = 0;
-            _attentiontime = 0;
             _estatus = false;
             _createdBy = string.Empty;
             _createdDt = DateTime.MinValue;
@@ -49,37 +40,34 @@ namespace Categories.Domain
             _updatedDt = DateTime.MinValue;
         }
 
-        public static CategoriesObj Create(long categoryId)
+        public static CouncilorObj Create(long councilorId)
         {
-            return new CategoriesObj(categoryId);
+            return new CouncilorObj(councilorId);
         }
 
-        public CategoriesObj SetInformationAditional(string name, string description)
+        public CouncilorObj SetInformationAditional(string name, string description, int order)
         {
-            _name = name;
-            _description = description;
+            if (!string.IsNullOrWhiteSpace(name))
+                _name = name;
+
+            if (!string.IsNullOrWhiteSpace(description))
+                _description = description;
+
+            if (order > 0)
+                _order = order;
             return this;
         }
 
-        public CategoriesObj SetInformationCouncilor(long councilorId, long categoryfatherId, int order, int attention)
-        {
-            _councilorId = councilorId;
-            _categoryFatherId = categoryfatherId;
-            _order = order;
-            _attentiontime = attention;
-            return this;
-        }
-
-        public CategoriesObj SetInformationCreated(string createdBy, DateTime CreatedDt)
+        public CouncilorObj SetInformationCreated(string createdBy, DateTime CreatedDt)
         {
             _createdBy = createdBy;
             _createdDt = CreatedDt;
             return this;
         }
 
-        public CategoriesObj SetInformationUpdated(string updatedBy, DateTime updatedDt)
+        public CouncilorObj SetInformationUpdated(string updatedBy, DateTime updatedDt)
         {
-            _updatedBy= updatedBy;
+            _updatedBy = updatedBy;
             _updatedDt = updatedDt;
             return this;
         }

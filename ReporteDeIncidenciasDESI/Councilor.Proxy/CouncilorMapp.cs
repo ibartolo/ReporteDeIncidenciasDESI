@@ -1,24 +1,22 @@
-﻿using Categories.Domain;
-using System.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Common.Domain;
+using Councilor.Domain;
 
-
-namespace Categories.Proxy
+namespace Councilor.Proxy
 {
-    public class CategoriesMapp
+    public class CouncilorMapp
     {
-        public static List<CategoriesObj> MappCategories(DataTable dto)
+        public static List<CouncilorObj> MappCouncilor(DataTable dto)
         {
             // Si dto es null lanzamos excepción indicando que no fue posible obtener valores
             if (dto == null)
                 throw new ArgumentNullException(nameof(dto), "No fue posible obtener valores desde el DataTable.");
 
-            var list = new List<CategoriesObj>();
+            var list = new List<CouncilorObj>();
 
             // Si no tiene filas regresamos lista vacía
             if (dto.Rows.Count == 0)
@@ -33,36 +31,18 @@ namespace Categories.Proxy
                     try { id = Convert.ToInt64(row["Id"]); } catch { id = 0; }
                 }
 
-                long councilorId = 0;
-                if (dto.Columns.Contains("RegiduriaId") && row["RegiduriaId"] != DBNull.Value)
-                {
-                    try { councilorId = Convert.ToInt64(row["RegiduriaId"]); } catch (Exception ex) { councilorId = 0; }
-                }
-
                 string name = dto.Columns.Contains("Nombre") && row["Nombre"] != DBNull.Value
                     ? row["Nombre"].ToString() ?? string.Empty
                     : string.Empty;
-                
+
                 string description = dto.Columns.Contains("Descripcion") && row["Descripcion"] != DBNull.Value
                     ? row["Descripcion"].ToString() ?? string.Empty
                     : string.Empty;
 
-                long categoryFatherId = 0;
-                if (dto.Columns.Contains("CategoriaPadreId") && row["CategoriaPadreId"] != DBNull.Value)
-                {
-                    try { categoryFatherId = Convert.ToInt64(row["CategoriaPadreId"]); } catch (Exception ex) { categoryFatherId = 0; }
-                }
-                
                 int order = 0;
                 if (dto.Columns.Contains("Orden") && row["Orden"] != DBNull.Value)
                 {
                     try { order = Convert.ToInt32(row["Orden"]); } catch (Exception ex) { order = 0; }
-                }
-                
-                int timeAttention = 0;
-                if (dto.Columns.Contains("TiempoAtencionEstimado") && row["TiempoAtencionEstimado"] != DBNull.Value)
-                {
-                    try { timeAttention = Convert.ToInt32(row["TiempoAtencionEstimado"]); } catch (Exception ex) { timeAttention = 0; }
                 }
 
                 bool estatus = false;
@@ -92,12 +72,11 @@ namespace Categories.Proxy
                 }
 
                 // Crear nuevo WorkAreaObj por cada fila
-                var item = CategoriesObj.Create(id);
+                var item = CouncilorObj.Create(id);
                 if (item != null)
                 {
                     //ingresar los demas campos faltantes
-                    item.SetInformationAditional(name, description);
-                    item.SetInformationCouncilor(councilorId, categoryFatherId, order, timeAttention);
+                    item.SetInformationAditional(name, description, order);
                     item.SetInformationCreated(createdBy, createdDt);
                     item.SetInformationUpdated(updatedBy, updatedDt);
                     list.Add(item);

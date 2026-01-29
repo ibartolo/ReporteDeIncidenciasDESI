@@ -11,6 +11,10 @@ using Unity.Lifetime;
 using Unity.WebApi;
 using User.Application;
 using User.Proxy;
+using Categories.Application;
+using Categories.Proxy;
+using Councilor.Application;
+using Councilor.Proxy;
 
 [assembly: OwinStartup(typeof(ReporteDeIncidenciasDESIWebApi.App_Start.Startup))]
 namespace ReporteDeIncidenciasDESIWebApi.App_Start
@@ -32,6 +36,10 @@ namespace ReporteDeIncidenciasDESIWebApi.App_Start
             // Registrar implementaciones concretas
             container.RegisterType<IUserProxy, UserProxy>(new HierarchicalLifetimeManager());
             container.RegisterType<IUserApp, UserApp>(new HierarchicalLifetimeManager());
+            container.RegisterType<ICategoriesProxy, CategoriesProxy>(new HierarchicalLifetimeManager());
+            container.RegisterType<ICategoriesApp, CategoriesApp>(new HierarchicalLifetimeManager());
+            container.RegisterType<ICouncilorProxy, CouncilorProxy>(new HierarchicalLifetimeManager());
+            container.RegisterType<ICouncilorApp, CouncilorApp>(new HierarchicalLifetimeManager());
 
             // Asignar resolver a Web API
             config.DependencyResolver = new UnityDependencyResolver(container);

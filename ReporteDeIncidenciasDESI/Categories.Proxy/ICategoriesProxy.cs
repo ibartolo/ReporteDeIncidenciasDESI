@@ -11,5 +11,7 @@ namespace Categories.Proxy
     {
         DataTable GetAllCategories();
         DataTable GetCategoryById(long id);
+        DataTable GetCategoriesByCouncilor(long councilorId);
+        DataTable GetCategoriesByCouncilorId(long councilorId);
     }
 }
