@@ -316,7 +316,7 @@ body {
     border-radius: 6px 6px 0 0;
 }
 
-.table-responsive {
+/*.table-responsive {
     border: none;
 }
 
@@ -342,7 +342,7 @@ body {
     .tabla-incidencias tbody td {
         padding: 12px 8px;
         vertical-align: middle;
-    }
+    }*/
 
 /* Etiquetas de estado */
 .etiqueta-estado {

@@ -68,16 +68,16 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/Home/Index"><i class="fas fa-home"></i> Inicio</a></li>
                     <li><a href="/Report/Create"><i class="fas fa-plus-circle"></i> Nueva Incidencia</a></li>
-                    <li><a href="#"><i class="fas fa-map-marked-alt"></i> Mapa</a></li>
-                    <li><a href="#"><i class="fas fa-chart-line"></i> Reportes</a></li>
-                    <li><a href="#"><i class="fas fa-users-cog"></i> Administración</a></li>
-                    <li><a href="#"><i class="fas fa-cog"></i> Configuración</a></li>
+                    <!--<li><a href="#"><i class="fas fa-map-marked-alt"></i> Mapa</a></li>-->
+                    <li><a href="/Report/Index"><i class="fas fa-chart-line"></i> Reportes</a></li>
+                    <!--<li><a href="#"><i class="fas fa-users-cog"></i> Administración</a></li>
+    <li><a href="#"><i class="fas fa-cog"></i> Configuración</a></li>-->
                 </ul>
 
                 <div class="navbar-right hidden-xs">
                     <div class="usuario-sesion">
                         <span><i class="fas fa-user-shield"></i> Departamento de Servicios Públicos</span>
-                        <button class="btn btn-sesion btn-xs"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+                        <button class="btn btn-sesion btn-xs" onclick="CerrarSesion()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
                     </div>
                 </div>
             </div>
@@ -87,7 +87,6 @@
     <!-- Contenido principal -->
     <main class="container-fluid">
         @RenderBody()
-
     </main>
 
     <!-- Footer institucional -->

@@ -1,0 +1,251 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/CSS/Report/Index.css" rel="stylesheet" />
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="row">
+    <div class="col-xs-12">
+        <!-- Encabezado de página -->
+        <div class="encabezado-pagina">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <h1 class="titulo-pagina"><i class="fas fa-chart-bar"></i> Reportes Estadísticos</h1>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="export-buttons">
+                        <button class="btn btn-export" id="btn-export-pdf">
+                            <i class="fas fa-file-pdf"></i> Exportar PDF
+                        </button>
+                        <button class="btn btn-export" id="btn-export-excel">
+                            <i class="fas fa-file-excel"></i> Exportar Excel
+                        </button>
+                        <button class="btn btn-export" id="btn-print">
+                            <i class="fas fa-print"></i> Imprimir
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="panel panel-filtros">
+            <div class="panel-heading panel-heading-filtros">
+                <h3 class="panel-title"><i class="fas fa-filter"></i> Filtros del Reporte</h3>
+            </div>
+            <div class="panel-body panel-body-filtros">
+                <form id="form-filtros" class="form-horizontal">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-3">
+                            <div class="form-group">
+                                <label for="fecha-inicio"><i class="fas fa-calendar"></i> Fecha Inicio</label>
+                                <input type="date" class="form-control" id="fecha-inicio" value="2026-01-01">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-3">
+                            <div class="form-group">
+                                <label for="fecha-fin"><i class="fas fa-calendar"></i> Fecha Fin</label>
+                                <input type="date" class="form-control" id="fecha-fin" value="2026-01-31">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-3">
+                            <div class="form-group">
+                                <label for="categoria"><i class="fas fa-tags"></i> Categoría</label>
+                                <select id="categoria" class="form-control">
+                                    <option value="">Todas las categorías</option>
+                                    <option>Alumbrado Público</option>
+                                    <option>Bacheo y Pavimentación</option>
+                                    <option>Recolección de Basura</option>
+                                    <option>Agua Potable y Drenaje</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-3">
+                            <div class="form-group">
+                                <label for="colonia"><i class="fas fa-map-marker-alt"></i> Colonia</label>
+                                <select id="colonia" class="form-control">
+                                    <option value="">Todas las colonias</option>
+                                    <option>Centro</option>
+                                    <option>Petrolera</option>
+                                    <option>Obrera</option>
+                                    <option>Lomas</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-right">
+                            <button type="submit" class="btn btn-filtro" id="btn-generar-reporte">
+                                <i class="fas fa-chart-line"></i> Generar Reporte
+                            </button>
+                            <button type="button" class="btn btn-default" id="btn-reset-filtros">
+                                <i class="fas fa-redo"></i> Restablecer
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Métricas principales -->
+        <div class="row" id="metricas-container">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="metric-card">
+                    <div class="metric-title">
+                        <i class="fas fa-file-alt" style="color: var(--color-institucional);"></i>
+                        Total de Incidencias
+                    </div>
+                    <div class="metric-value" id="metric-total">1,248</div>
+                    <div class="metric-change positive" id="metric-total-change">
+                        <i class="fas fa-arrow-up"></i> 12% vs mes anterior
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="metric-card">
+                    <div class="metric-title">
+                        <i class="fas fa-check-circle" style="color: var(--color-exito);"></i>
+                        Resueltas
+                    </div>
+                    <div class="metric-value" id="metric-resueltas">892</div>
+                    <div class="metric-change positive" id="metric-resueltas-change">
+                        <i class="fas fa-arrow-up"></i> 8% vs mes anterior
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="metric-card">
+                    <div class="metric-title">
+                        <i class="fas fa-clock" style="color: var(--color-proceso);"></i>
+                        Tiempo Promedio
+                    </div>
+                    <div class="metric-value" id="metric-tiempo">3.2 días</div>
+                    <div class="metric-change negative" id="metric-tiempo-change">
+                        <i class="fas fa-arrow-down"></i> 0.5 días más
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="metric-card">
+                    <div class="metric-title">
+                        <i class="fas fa-user-check" style="color: var(--color-azul);"></i>
+                        Satisfacción
+                    </div>
+                    <div class="metric-value" id="metric-satisfaccion">86%</div>
+                    <div class="metric-change positive" id="metric-satisfaccion-change">
+                        <i class="fas fa-arrow-up"></i> 4% vs mes anterior
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráficas principales -->
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <div class="chart-container">
+                    <h3 class="chart-title">
+                        <i class="fas fa-chart-pie"></i> Incidencias por Categoría
+                    </h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartCategorias"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="chart-container">
+                    <h3 class="chart-title">
+                        <i class="fas fa-chart-line"></i> Tendencia Mensual
+                    </h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartTendencia"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráficas secundarias -->
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <div class="chart-container">
+                    <h3 class="chart-title">
+                        <i class="fas fa-map-marker-alt"></i> Top 5 Colonias con Más Reportes
+                    </h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartColonias"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="chart-container">
+                    <h3 class="chart-title">
+                        <i class="fas fa-flag"></i> Estado de Incidencias
+                    </h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartEstatus"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de reporte detallado -->
+        <div class="panel panel-tabla">
+            <div class="panel-heading panel-heading-tabla">
+                <h3 class="panel-title"><i class="fas fa-list"></i> Reporte Detallado por Categoría</h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table tabla-reportes" id="tabla-detallada">
+                        <thead>
+                            <tr>
+                                <th>Categoría</th>
+                                <th>Total Reportes</th>
+                                <th>Resueltos</th>
+                                <th>En Proceso</th>
+                                <th>Pendientes</th>
+                                <th>Tiempo Promedio</th>
+                                <th>Satisfacción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-body">
+                            <!-- Datos se cargan dinámicamente -->
+                        </tbody>
+                        <tfoot id="tabla-footer">
+                            <!-- Totales se cargan dinámicamente -->
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Información adicional -->
+        <div class="panel panel-default" id="panel-analisis">
+            <div class="panel-heading" style="background-color: rgba(174, 139, 84, 0.1);">
+                <h3 class="panel-title"><i class="fas fa-lightbulb"></i> Análisis y Recomendaciones</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6" id="fortalezas">
+                        <h4><i class="fas fa-thumbs-up" style="color: var(--color-exito);"></i> Puntos Fuertes</h4>
+                        <ul id="lista-fortalezas">
+                            <!-- Se carga dinámicamente -->
+                        </ul>
+                    </div>
+                    <div class="col-xs-12 col-md-6" id="oportunidades">
+                        <h4><i class="fas fa-exclamation-triangle" style="color: var(--color-urgente);"></i> Áreas de Oportunidad</h4>
+                        <ul id="lista-oportunidades">
+                            <!-- Se carga dinámicamente -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script src="~/JS/Report/Index.js"></script>

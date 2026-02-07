@@ -1,0 +1,224 @@
+﻿/* 
+ * reportes.css
+ * Estilos específicos para la página de reportes
+ * Mantiene separación del CSS base del template
+ */
+
+/* Variables de color específicas para reportes */
+:root {
+    --color-institucional: #7c1928;
+    --color-dorado: #ae8b54;
+    --color-blanco: #ffffff;
+    --color-azul: #0b3a5c;
+    --color-texto: #333333;
+    --color-fondo: #f5f5f5;
+    --color-borde: #dddddd;
+    --color-exito: #2e7d32;
+    --color-proceso: #f57c00;
+    --color-urgente: #d32f2f;
+}
+
+/* Encabezado de página */
+.encabezado-pagina {
+    margin: 20px 0;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--color-dorado);
+}
+
+.titulo-pagina {
+    color: var(--color-institucional);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+    .titulo-pagina i {
+        color: var(--color-dorado);
+        margin-right: 10px;
+    }
+
+/* Filtros de reportes */
+.panel-filtros {
+    border: 1px solid var(--color-borde);
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 25px;
+}
+
+.panel-heading-filtros {
+    background-color: var(--color-azul);
+    color: var(--color-blanco);
+    border-bottom: 2px solid var(--color-dorado);
+    padding: 12px 15px;
+    border-radius: 6px 6px 0 0;
+}
+
+.panel-body-filtros {
+    padding: 20px;
+}
+
+.btn-filtro {
+    background-color: var(--color-institucional);
+    color: var(--color-blanco);
+    border: none;
+    padding: 8px 20px;
+    margin-right: 10px;
+}
+
+    .btn-filtro:hover {
+        background-color: #5a1220;
+        color: var(--color-blanco);
+    }
+
+/* Tarjetas de métricas */
+.metric-card {
+    background: var(--color-blanco);
+    border-radius: 6px;
+    padding: 20px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+    height: 100%;
+    border-top: 4px solid var(--color-institucional);
+}
+
+.metric-title {
+    color: var(--color-azul);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.metric-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-institucional);
+    margin: 10px 0;
+    line-height: 1;
+}
+
+.metric-change {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+    .metric-change.positive {
+        color: var(--color-exito);
+    }
+
+    .metric-change.negative {
+        color: var(--color-urgente);
+    }
+
+/* Gráficas */
+.chart-container {
+    background: var(--color-blanco);
+    border-radius: 6px;
+    padding: 20px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+    height: 100%;
+}
+
+.chart-title {
+    color: var(--color-azul);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chart-wrapper {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+/* Tablas de reportes */
+.panel-tabla {
+    border: 1px solid var(--color-borde);
+    border-radius: 6px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+
+.panel-heading-tabla {
+    background-color: var(--color-azul);
+    color: var(--color-blanco);
+    border-bottom: 2px solid var(--color-dorado);
+    padding: 12px 15px;
+    border-radius: 6px 6px 0 0;
+}
+
+.tabla-reportes {
+    margin-bottom: 0;
+}
+
+    .tabla-reportes thead {
+        background-color: var(--color-azul);
+        color: var(--color-blanco);
+    }
+
+        .tabla-reportes thead th {
+            border-bottom: 2px solid var(--color-dorado);
+            font-weight: 600;
+            padding: 12px 8px;
+        }
+
+    .tabla-reportes tbody tr:hover {
+        background-color: rgba(174, 139, 84, 0.05);
+    }
+
+    .tabla-reportes tbody td {
+        padding: 12px 8px;
+        vertical-align: middle;
+    }
+
+/* Botones de exportación */
+.export-buttons {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.btn-export {
+    background-color: var(--color-blanco);
+    color: var(--color-institucional);
+    border: 1px solid var(--color-institucional);
+    padding: 8px 15px;
+    border-radius: 4px;
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+    .btn-export:hover {
+        background-color: rgba(124, 25, 40, 0.05);
+    }
+
+    .btn-export i {
+        margin-right: 5px;
+    }
+
+/* Responsive específico para reportes */
+@media (max-width: 767px) {
+    .export-buttons {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .btn-export {
+        margin: 5px;
+        width: calc(100% - 10px);
+    }
+
+    .metric-value {
+        font-size: 1.8rem;
+    }
+
+    .chart-wrapper {
+        height: 250px;
+    }
+}

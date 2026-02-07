@@ -17,6 +17,10 @@ namespace ReporteDeIncidenciasDESIMvc.Controllers
         {
             return View();
         }
+        public ActionResult RestorPass()
+        {
+            return View();
+        }
         #endregion
 
         #region Data Access

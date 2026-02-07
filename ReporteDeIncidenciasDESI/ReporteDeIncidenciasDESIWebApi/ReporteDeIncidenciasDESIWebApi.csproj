@@ -159,7 +159,6 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AutenticationController.cs" />
-    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CouncilorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -180,18 +179,6 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Categories.Application\Categories.Application.csproj">
-      <Project>{2f6089cc-9410-4123-99e3-9d1c47f64392}</Project>
-      <Name>Categories.Application</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Categories.Domain\Categories.Domain.csproj">
-      <Project>{9517fd5e-27ee-4567-935b-567d3c95c515}</Project>
-      <Name>Categories.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Categories.Proxy\Categories.Proxy.csproj">
-      <Project>{301165b4-7b8e-41cc-a991-78fd3b8bc1f5}</Project>
-      <Name>Categories.Proxy</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Common.Domain\Common.Domain.csproj">
       <Project>{DE1657BC-13A9-420D-BBC3-A83E6121304F}</Project>
       <Name>Common.Domain</Name>

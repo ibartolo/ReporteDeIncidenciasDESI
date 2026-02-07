@@ -23,7 +23,7 @@
 
         // Simulación de login exitoso
         setTimeout(function () {
-            window.location.href = 'dashboard.html';
+            window.location.href = '/Home/Index';
         }, 1500);
     });
 
@@ -35,7 +35,7 @@
 
         // Simulación de login exitoso
         setTimeout(function () {
-            window.location.href = 'dashboard.html';
+            window.location.href = '/Home/Index';
         }, 1500);
     });
 
@@ -71,7 +71,7 @@
             // Verificar si es correo institucional
             if (email.includes('@pozarica.gob.mx') || email.includes('@ayuntamiento.pr')) {
                 // Simular login exitoso
-                window.location.href = 'dashboard.html';
+                window.location.href = '/Home/Index';
             } else {
                 $('#mensaje-texto').text('Solo se permiten correos institucionales del ayuntamiento.');
                 $('#mensaje-error').removeClass('alert-info').addClass('alert-danger').show();

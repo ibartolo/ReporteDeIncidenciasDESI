@@ -1,0 +1,589 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña - Sistema de Incidencias</title>
+
+    <!-- Bootstrap 3 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --color-institucional: #7c1928;
+            --color-dorado: #ae8b54;
+            --color-blanco: #ffffff;
+            --color-azul: #0b3a5c;
+            --color-texto: #333333;
+            --color-fondo: #f5f5f5;
+            --color-borde: #dddddd;
+            --color-exito: #2e7d32;
+            --color-error: #d32f2f;
+            --color-info: #0b3a5c;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--color-institucional) 0%, var(--color-azul) 100%);
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .recovery-container {
+            width: 100%;
+            max-width: 450px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @@keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Encabezado */
+        .recovery-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .recovery-logo {
+            height: 80px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            margin-bottom: 20px;
+        }
+
+        .recovery-title {
+            color: var(--color-blanco);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .recovery-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+
+        /* Tarjeta principal */
+        .recovery-card {
+            background-color: var(--color-blanco);
+            border-radius: 10px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-top: 5px solid var(--color-dorado);
+        }
+
+        /* Indicador de pasos */
+        .steps-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .steps-indicator:before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--color-borde);
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+
+        .step-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--color-borde);
+            color: var(--color-texto);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .step.active .step-icon {
+            background-color: var(--color-institucional);
+            color: var(--color-blanco);
+            box-shadow: 0 0 0 3px rgba(124, 25, 40, 0.2);
+        }
+
+        .step.completed .step-icon {
+            background-color: var(--color-exito);
+            color: var(--color-blanco);
+        }
+
+        .step.completed .step-icon:after {
+            content: '✓';
+            font-size: 0.9rem;
+        }
+
+        .step-label {
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+            font-weight: 500;
+            max-width: 80px;
+        }
+
+        .step.active .step-label {
+            color: var(--color-institucional);
+            font-weight: 600;
+        }
+
+        /* Formularios */
+        .recovery-form {
+            display: none;
+        }
+
+        .recovery-form.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @@keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--color-texto);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 15px;
+            border: 2px solid var(--color-borde);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--color-dorado);
+            box-shadow: 0 0 0 3px rgba(174, 139, 84, 0.1);
+            outline: none;
+        }
+
+        /* Inputs de código */
+        .code-inputs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .code-input {
+            width: 50px;
+            height: 60px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 600;
+            border: 2px solid var(--color-borde);
+            border-radius: 8px;
+            background-color: var(--color-fondo);
+            transition: all 0.3s;
+        }
+
+        .code-input:focus {
+            border-color: var(--color-dorado);
+            background-color: var(--color-blanco);
+            box-shadow: 0 0 0 3px rgba(174, 139, 84, 0.1);
+            outline: none;
+        }
+
+        .code-input.filled {
+            border-color: var(--color-exito);
+            background-color: rgba(46, 125, 50, 0.05);
+        }
+
+        /* Temporizador */
+        .timer-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: var(--color-fondo);
+            border-radius: 6px;
+            border-left: 4px solid var(--color-dorado);
+        }
+
+        .timer {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--color-texto);
+        }
+
+        .timer .countdown {
+            color: var(--color-institucional);
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer.expired .countdown {
+            color: var(--color-error);
+        }
+
+        /* Medidor de fortaleza de contraseña */
+        .password-strength {
+            margin-top: 10px;
+        }
+
+        .strength-meter {
+            height: 6px;
+            background-color: var(--color-borde);
+            border-radius: 3px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s;
+            border-radius: 3px;
+        }
+
+        .strength-text {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Botones */
+        .btn-recovery {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--color-institucional);
+            color: var(--color-blanco);
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-recovery:hover {
+            background-color: #5a1220;
+        }
+
+        .btn-recovery:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--color-blanco);
+            color: var(--color-institucional);
+            border: 2px solid var(--color-institucional);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(124, 25, 40, 0.05);
+        }
+
+        /* Mensajes */
+        .alert-message {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: rgba(46, 125, 50, 0.1);
+            border: 1px solid rgba(46, 125, 50, 0.2);
+            color: var(--color-exito);
+        }
+
+        .alert-error {
+            background-color: rgba(211, 47, 47, 0.1);
+            border: 1px solid rgba(211, 47, 47, 0.2);
+            color: var(--color-error);
+        }
+
+        .alert-info {
+            background-color: rgba(11, 78, 162, 0.1);
+            border: 1px solid rgba(11, 78, 162, 0.2);
+            color: var(--color-info);
+        }
+
+        /* Info boxes */
+        .info-box {
+            background-color: var(--color-fondo);
+            border-left: 4px solid var(--color-dorado);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        .info-box i {
+            color: var(--color-dorado);
+            margin-right: 10px;
+        }
+
+        /* Enlaces */
+        .recovery-links {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--color-borde);
+        }
+
+        .recovery-links a {
+            color: var(--color-institucional);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .recovery-links a:hover {
+            color: #5a1220;
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @@media (max-width: 480px) {
+            .recovery-card {
+                padding: 25px;
+            }
+
+            .recovery-title {
+                font-size: 1.5rem;
+            }
+
+            .recovery-logo {
+                height: 60px;
+            }
+
+            .code-input {
+                width: 40px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .step-label {
+                font-size: 0.75rem;
+                max-width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="recovery-container">
+        <!-- Encabezado -->
+        <div class="recovery-header">
+            <img src="https://i0.wp.com/poza-rica.gob.mx/wp-content/uploads/2025/12/logo-web-poza-rica-2026-2029.png?fit=1180%2C313&ssl=1"
+                 alt="Logo Gobierno de Poza Rica" class="recovery-logo">
+            <h1 class="recovery-title">Recuperar Contraseña</h1>
+            <p class="recovery-subtitle">H. Ayuntamiento de Poza Rica 2026-2029</p>
+        </div>
+
+        <!-- Tarjeta principal -->
+        <div class="recovery-card">
+            <!-- Indicador de pasos -->
+            <div class="steps-indicator">
+                <div class="step active" id="step-1">
+                    <div class="step-icon">1</div>
+                    <div class="step-label">Ingresar Email</div>
+                </div>
+                <div class="step" id="step-2">
+                    <div class="step-icon">2</div>
+                    <div class="step-label">Verificar Código</div>
+                </div>
+                <div class="step" id="step-3">
+                    <div class="step-icon">3</div>
+                    <div class="step-label">Nueva Contraseña</div>
+                </div>
+            </div>
+
+            <!-- Mensajes -->
+            <div id="alert-message" class="alert-message">
+                <i class="fas fa-info-circle"></i> <span id="message-text"></span>
+            </div>
+
+            <!-- Paso 1: Ingresar Email -->
+            <div id="form-step-1" class="recovery-form active">
+                <div class="info-box">
+                    <i class="fas fa-info-circle"></i>
+                    Ingresa tu correo electrónico institucional registrado.
+                    Te enviaremos un código de verificación para recuperar tu contraseña.
+                </div>
+
+                <form id="form-email">
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Correo Institucional</label>
+                        <input type="email" class="form-control" id="email"
+                               placeholder="usuario@pozarica.gob.mx" required>
+                        <small class="text-muted">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Solo correos institucionales del ayuntamiento
+                        </small>
+                    </div>
+
+                    <button type="submit" class="btn-recovery" id="btn-send-code">
+                        <i class="fas fa-paper-plane"></i> Enviar Código de Verificación
+                    </button>
+                </form>
+            </div>
+
+            <!-- Paso 2: Verificar Código -->
+            <div id="form-step-2" class="recovery-form">
+                <div class="info-box">
+                    <i class="fas fa-shield-alt"></i>
+                    Hemos enviado un código de 6 dígitos a
+                    <strong id="email-display">usuario@pozarica.gob.mx</strong>.
+                    Revísalo e ingrésalo a continuación.
+                </div>
+
+                <form id="form-code">
+                    <div class="code-inputs">
+                        <input type="text" class="code-input" maxlength="1" data-index="0">
+                        <input type="text" class="code-input" maxlength="1" data-index="1">
+                        <input type="text" class="code-input" maxlength="1" data-index="2">
+                        <input type="text" class="code-input" maxlength="1" data-index="3">
+                        <input type="text" class="code-input" maxlength="1" data-index="4">
+                        <input type="text" class="code-input" maxlength="1" data-index="5">
+                    </div>
+                    <input type="hidden" id="verification-code" name="code">
+
+                    <div class="timer-container">
+                        <div class="timer" id="timer">
+                            <i class="fas fa-clock"></i> El código expira en:
+                            <span class="countdown">05:00</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="button" class="btn-secondary" id="btn-resend-code" disabled>
+                            <i class="fas fa-redo"></i> Reenviar código <span id="resend-timer">(01:00)</span>
+                        </button>
+                    </div>
+
+                    <button type="submit" class="btn-recovery" id="btn-verify-code" disabled>
+                        <i class="fas fa-check-circle"></i> Verificar Código
+                    </button>
+                </form>
+            </div>
+
+            <!-- Paso 3: Nueva Contraseña -->
+            <div id="form-step-3" class="recovery-form">
+                <div class="info-box">
+                    <i class="fas fa-key"></i>
+                    Crea una nueva contraseña segura para tu cuenta.
+                    Asegúrate de que tenga al menos 8 caracteres, incluya mayúsculas,
+                    números y caracteres especiales.
+                </div>
+
+                <form id="form-password">
+                    <div class="form-group">
+                        <label for="new-password"><i class="fas fa-lock"></i> Nueva Contraseña</label>
+                        <input type="password" class="form-control" id="new-password"
+                               placeholder="Mínimo 8 caracteres" required>
+
+                        <div class="password-strength">
+                            <div class="strength-text">
+                                Seguridad: <span id="strength-text">Débil</span>
+                            </div>
+                            <div class="strength-meter">
+                                <div id="strength-fill" class="strength-fill" style="background-color: #d32f2f; width: 20%;"></div>
+                            </div>
+                            <small class="text-muted">
+                                <i class="fas fa-lightbulb"></i>
+                                La contraseña debe incluir mayúsculas, números y caracteres especiales
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password"><i class="fas fa-lock"></i> Confirmar Contraseña</label>
+                        <input type="password" class="form-control" id="confirm-password"
+                               placeholder="Repite la contraseña" required>
+                        <small id="password-match" class="text-muted"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="show-password">
+                                <i class="fas fa-eye"></i> Mostrar contraseñas
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-recovery" id="btn-change-password">
+                        <i class="fas fa-save"></i> Establecer Nueva Contraseña
+                    </button>
+                </form>
+            </div>
+
+            <!-- Enlaces de navegación -->
+            <div class="recovery-links">
+                <a href="/Home/Autentication">
+                    <i class="fas fa-arrow-left"></i> Volver al inicio de sesión
+                </a>
+                @*<br>
+                <a href="index.html">
+                    <i class="fas fa-home"></i> Página principal del sistema
+                </a>*@
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-4" style="color: rgba(255, 255, 255, 0.8);">
+            <p class="small">
+                <i class="fas fa-shield-alt"></i>
+                Sistema seguro • No compartas tu código de verificación • © 2026 H. Ayuntamiento de Poza Rica
+            </p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="~/JS/Template/RestorPass.js"></script>
+</body>
+</html>

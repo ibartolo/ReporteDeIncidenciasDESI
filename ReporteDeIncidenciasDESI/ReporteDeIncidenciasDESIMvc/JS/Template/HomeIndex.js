@@ -28,3 +28,7 @@ $(document).ready(function () {
         }
     });
 });
+
+function CerrarSesion() {
+    window.location.href = "/Home/Autentication";
+}
